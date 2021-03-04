@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -o errexit -o pipefail -o nounset
+
+this_path="$(pwd)"
+
+remote_found=false
+url_line=""
+
+while IFS= read -r line; do
+  if [[ $line == '[remote "origin"]' ]]; then
+    remote_found=true
+  fi
+
+  if [[ $remote_found && $line == *'url'* ]]; then
+    url_line=$line
+  fi
+
+done < "${this_path}/.git/config"
+
+url=$(echo "$url_line" | cut -d'@' -f 2)
+url=$(echo "$url" | tr : /)
+url=${url%.*}
+url="https://${url}"
+
+echo "repo opening ${url} in browser"
+
+python -mwebbrowser "$url"

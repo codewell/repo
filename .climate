@@ -1,0 +1,5 @@
+NAME=repo
+VERSION=0.0.1
+DESCRIPTION=Open a repository on github
+REPOSITORY=
+MAIN=main
