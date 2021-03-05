@@ -14,8 +14,6 @@ A browsertab with the repository homepage should open.
 ## Installation
 Its easy to install with [climate](https://cli-mate.sh/)
 
-Clone this repo and run
 ```
-climate install
+climate install https://github.com/codewell/repo.git
 ```
-from root.
