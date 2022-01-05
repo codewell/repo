@@ -22,4 +22,12 @@ url="https://${url}"
 
 echo "repo opening ${url} in browser"
 
-python -mwebbrowser "$url"
+if ! command -v xdg-open &> /dev/null
+then
+  echo "Could not find xdg-open. Trying python..."
+  python -mwebbrowser "$url"  
+else
+  xdg-open "$url"
+fi
+
+
