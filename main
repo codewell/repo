@@ -1,26 +1,13 @@
 #!/usr/bin/env bash
 set -o errexit -o pipefail -o nounset
 
-remote_found=false
-url_line=""
+remote="$(git remote get-url origin)"
 
-while IFS= read -r line; do
-  if [[ $line == '[remote "origin"]' ]]; then
-    remote_found=true
-  fi
-
-  if [[ $remote_found && $line == *'url'* ]]; then
-    url_line=$line
-    break
-  fi
-
-done < "$(pwd)/.git/config"
-
-url=$(echo "$url_line" | cut -d'@' -f 2)
+url=$(echo "$remote" | cut -d'@' -f 2)
 url=$(echo "$url" | tr : /)
 url="https://${url}"
 
-echo "repo opening ${url} in browser"
+echo "> Opening ${url} in browser"
 
 if ! command -v xdg-open &> /dev/null
 then
